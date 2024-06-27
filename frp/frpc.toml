@@ -3,7 +3,13 @@ serverPort = 7000
 
 [[proxies]]
 name = "chat-bot"
-type = "tcp"
-localIP = "127.0.0.1"
-localPort = 8000
-remotePort = 80
+type = "https"
+customDomains = ["dannyhallo.top", "www.dannyhallo.top"]
+
+[proxies.plugin]
+type = "https2http"
+localAddr = "127.0.0.1:8000"
+crtPath = "frp/dannyhallo.top_public.crt"
+keyPath = "frp/dannyhallo.top.key"
+hostHeaderRewrite = "127.0.0.1"
+requestHeaders.set.x-from-where = "frp"

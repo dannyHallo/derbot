@@ -7,6 +7,11 @@
             "label": "uvicorn main:app --reload",
             "type": "shell",
             "command": "uvicorn main:app --reload"
+        },
+        {
+            "label": "start frpc",
+            "type": "shell",
+            "command": "./frp/frpc.exe -c ./frp/frpc.toml"
         }
     ]
 }
