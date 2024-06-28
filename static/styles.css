@@ -1,10 +1,13 @@
+body {
+  font-family: "Georgia", serif;
+}
+
 #border {
   position: fixed;
   width: 100vw;
   height: 100vh;
   left: 0;
   top: 0;
-  font-family: Arial, sans-serif;
   background-color: #414141;
 }
 
@@ -34,12 +37,10 @@
   width: 100%;
   height: 94%;
   display: flex;
-
   padding-left: 0.8vw;
   padding-right: 0.8vw;
   padding-bottom: 0;
   padding-top: 0;
-
   flex-direction: column;
   box-sizing: border-box;
   position: relative;
@@ -48,37 +49,98 @@
 
 #chat-history {
   display: flex;
-  justify-content: center;
-  align-items: center;
-  overflow-y: scroll;
+  flex-direction: column;
+  overflow-y: auto;
   border: none; /* Remove border */
   margin-bottom: 0.8vw;
   border-radius: 0.8vw;
   height: 80%;
   background-color: #1e1e1e; /* Match background color */
   color: #e0e0e0; /* Light grey text */
+  padding: 10px;
+  box-sizing: border-box;
+}
+
+#chat-history::-webkit-scrollbar {
+  width: 12px; /* Width of the scrollbar */
+}
+
+#chat-history::-webkit-scrollbar-track {
+  background: none; /* No background for the track */
+}
+
+#chat-history::-webkit-scrollbar-thumb {
+  background-color: #3a3a3a; /* Dark grey color for the scrollbar thumb */
+  border-radius: 10px; /* Rounded corners */
+  border: 3px solid transparent; /* Create space around the thumb */
 }
 
 #user-input {
   display: flex;
-  width: 100%;
-  height: 20%;
-
   justify-content: center;
   align-items: center;
+  width: 100%;
+  height: 20%;
+  position: relative;
+}
+
+#user-input textarea {
+  flex: 1;
+  padding: 10px;
+  border: none; /* Remove border */
+  border-radius: 0.4vw;
+  background-color: #2e2e2e; /* Match background color */
+  color: #b5b5b5; /* White text for input */
+  resize: none; /* Prevent resizing */
+  outline: none; /* Remove default focus outline */
+  font-family: "Georgia", serif;
+}
+
+#user-input textarea::placeholder {
+  color: #a0a0a0; /* Change placeholder color */
+}
+
+#user-input textarea:focus {
+  box-shadow: 0 0 3vw 1vw rgba(132, 132, 132, 0.2); /* Soft bright shadow */
+}
+
+#user-input textarea::-webkit-scrollbar {
+  width: 12px; /* Width of the scrollbar */
+}
+
+#user-input textarea::-webkit-scrollbar-track {
+  background: none; /* No background for the track */
+}
+
+#user-input textarea::-webkit-scrollbar-thumb {
+  background-color: #3a3a3a; /* Dark grey color for the scrollbar thumb */
+  border-radius: 10px; /* Rounded corners */
+  border: 3px solid transparent; /* Create space around the thumb */
+}
+
+#buttons-container {
+  display: flex;
+  align-items: flex-end;
+  margin-left: 10px;
 }
 
 .small-button {
-  padding: 10px;
-  border-radius: 4vw;
+  margin-left: 10px;
+  padding: 15px;
+  border-radius: 50%;
   border: none;
-  background-color: #3a3a3a;
+  background-color: #2e2e2e;
   color: white;
   cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 50px;
+  height: 50px;
 }
 
 .small-button:hover {
-  background-color: #a9a9a9; /* Green on hover */
+  background-color: #a9a9a9; /* Grey on hover */
 }
 
 .message {
@@ -87,7 +149,7 @@
   align-items: center;
   border-radius: 10px; /* Increased border-radius for rounded corners */
   padding: 10px;
-  max-width: 70%;
+  max-width: 90%; /* 90% of the parent width */
   word-wrap: break-word;
 }
 
@@ -107,23 +169,4 @@
 
 .message .text {
   border-radius: 10px;
-}
-
-#content {
-  flex: 1;
-  padding: 10px;
-  border: none; /* Remove border */
-  border-radius: 0.4vw;
-  background-color: #2e2e2e; /* Match background color */
-  color: #b5b5b5; /* White text for input */
-  resize: none; /* Prevent resizing */
-  outline: none; /* Remove default focus outline */
-}
-
-#content::placeholder {
-  color: #a0a0a0; /* Change placeholder color */
-}
-
-#content:focus {
-  box-shadow: 0 0 3vw 1vw rgba(132, 132, 132, 0.2); /* Soft bright shadow */
 }

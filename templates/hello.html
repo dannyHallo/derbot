@@ -2,6 +2,7 @@
 <html>
   <head>
     <title>Chat with Derbot</title>
+    <link href="https://fonts.font.im/css?family=Do+Hyeon" rel="stylesheet" />
     <link rel="stylesheet" href="static/styles.css" />
   </head>
   <body>
@@ -12,14 +13,17 @@
       <div id="chat-container">
         <div id="chat-history"></div>
         <div id="user-input">
-          <button id="clear-button" class="small-button">Clear</button>
           <textarea
             id="content"
             name="content"
             rows="5"
             placeholder="Type your message here..."
           ></textarea>
-          <button id="send-button" class="small-button">Send</button>
+          <div id="buttons-container">
+            <button id="clear-button" class="small-button">🗑️</button>
+            <button id="attach-button" class="small-button">📎</button>
+            <button id="send-button" class="small-button">➡️</button>
+          </div>
         </div>
       </div>
     </div>
