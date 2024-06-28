@@ -47,7 +47,9 @@
 }
 
 #chat-history {
-  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   overflow-y: scroll;
   border: none; /* Remove border */
   margin-bottom: 0.8vw;

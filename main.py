@@ -25,6 +25,12 @@ async def read_form(request: Request):
     return templates.TemplateResponse("index.html", {"request": request})
 
 
+@app.get("/hello.html", response_class=HTMLResponse)
+async def read_hello(request: Request):
+    logger.debug("GET /hello.html request received")
+    return templates.TemplateResponse("hello.html", {"request": request})
+
+
 @app.websocket("/ws")
 async def websocket_endpoint(websocket: WebSocket):
     await websocket.accept()

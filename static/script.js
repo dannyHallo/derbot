@@ -1,8 +1,6 @@
-// var ws = new WebSocket("ws://127.0.0.1:8000/ws");
 var loc = window.location;
 var wsStart = loc.protocol === "https:" ? "wss://" : "ws://";
-var wsUri = wsStart + loc.host + loc.pathname + "ws";
-var ws = new WebSocket(wsUri);
+var ws = new WebSocket(wsStart + loc.host + "/ws");
 
 ws.onopen = function () {
   console.log("connection established");
