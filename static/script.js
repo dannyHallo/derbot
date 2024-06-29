@@ -73,7 +73,18 @@ function sendMessage() {
 
 function clearChatHistory() {
   var chatHistory = document.getElementById("chat-history");
-  chatHistory.innerHTML = "";
+
+  setTimeout(function () {
+    chatHistory.innerHTML = "";
+  }, 100);
+
+  // Apply gray background
+  chatHistory.classList.add("gray-background");
+
+  // Remove the gray background after 0.5 seconds
+  setTimeout(function () {
+    chatHistory.classList.remove("gray-background");
+  }, 200);
 }
 
 function handleTitleClick() {

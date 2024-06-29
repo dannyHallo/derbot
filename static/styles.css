@@ -59,6 +59,11 @@ body {
   color: #e0e0e0; /* Light grey text */
   padding: 10px;
   box-sizing: border-box;
+  transition: background-color 0.2s ease;
+}
+
+.gray-background{
+  background-color: #414141 !important;
 }
 
 #chat-history::-webkit-scrollbar {
