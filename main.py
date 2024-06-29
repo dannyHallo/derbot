@@ -39,6 +39,13 @@ async def websocket_endpoint(websocket: WebSocket):
         while True:
             data = await websocket.receive_text()
             logger.debug(f"Received WebSocket message: {data}")
+
+            if data == "[CLS-REQ]":
+                conversation_history.clear()
+                logger.info("Conversation history cleared")
+                await websocket.send_text("[CLS-RSP]")
+                continue
+
             conversation_history.append(
                 fp.ProtocolMessage(role="user", content=data))
             async for partial in fp.get_bot_response(messages=conversation_history, bot_name=bot_name, api_key=api_key):

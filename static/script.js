@@ -16,23 +16,27 @@ ws.onmessage = function (event) {
     var messageDiv = document.getElementById(currentActiveBotDiv);
     messageDiv.id = "";
     botResponse = "";
-  } else {
-    botResponse += event.data;
-    var messageDiv = document.getElementById(currentActiveBotDiv);
-    if (!messageDiv) {
-      messageDiv = document.createElement("div");
-      messageDiv.id = currentActiveBotDiv;
-      messageDiv.className = "message bot-message";
-      messageDiv.innerHTML = `<div class="text"></div>`;
-      chatHistory.appendChild(messageDiv);
-    }
-
-    messageDiv.querySelector(".text").innerHTML = botResponse.replace(
-      /\n/g,
-      "<br>"
-    );
-    chatHistory.scrollTop = chatHistory.scrollHeight;
+    return;
   }
+  if (event.data === "[CLS-RSP]") {
+    clearChatHistory();
+    return;
+  }
+  botResponse += event.data;
+  var messageDiv = document.getElementById(currentActiveBotDiv);
+  if (!messageDiv) {
+    messageDiv = document.createElement("div");
+    messageDiv.id = currentActiveBotDiv;
+    messageDiv.className = "message bot-message";
+    messageDiv.innerHTML = `<div class="text"></div>`;
+    chatHistory.appendChild(messageDiv);
+  }
+
+  messageDiv.querySelector(".text").innerHTML = botResponse.replace(
+    /\n/g,
+    "<br>"
+  );
+  chatHistory.scrollTop = chatHistory.scrollHeight;
 };
 
 ws.onclose = function () {
@@ -50,6 +54,10 @@ document.getElementById("content").onkeypress = function (e) {
   }
 };
 
+document.getElementById("clear-button").onclick = function () {
+  ws.send("[CLS-REQ]");
+};
+
 function sendMessage() {
   var content = document.getElementById("content").value;
   if (!content.trim()) {
@@ -61,6 +69,11 @@ function sendMessage() {
   chatHistory.scrollTop = chatHistory.scrollHeight;
   ws.send(content);
   document.getElementById("content").value = "";
+}
+
+function clearChatHistory() {
+  var chatHistory = document.getElementById("chat-history");
+  chatHistory.innerHTML = "";
 }
 
 function handleTitleClick() {
