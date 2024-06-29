@@ -28,14 +28,11 @@ ws.onmessage = function (event) {
     messageDiv = document.createElement("div");
     messageDiv.id = currentActiveBotDiv;
     messageDiv.className = "message bot-message";
-    messageDiv.innerHTML = `<div class="text"></div>`;
+    messageDiv.innerHTML = `<md-block class="mdblock"></md-block>`;
     chatHistory.appendChild(messageDiv);
   }
 
-  messageDiv.querySelector(".text").innerHTML = botResponse.replace(
-    /\n/g,
-    "<br>"
-  );
+  messageDiv.querySelector(".mdblock").mdContent = botResponse;
   chatHistory.scrollTop = chatHistory.scrollHeight;
 };
 
@@ -64,7 +61,7 @@ function sendMessage() {
     return;
   }
   var chatHistory = document.getElementById("chat-history");
-  var messageHtml = `<div class="message user-message"><div class="text">${content}</div></div>`;
+  var messageHtml = `<div class="message user-message"><md-block class="text">${content}</md-block></div>`;
   chatHistory.innerHTML += messageHtml;
   chatHistory.scrollTop = chatHistory.scrollHeight;
   ws.send(content);
@@ -89,4 +86,6 @@ function clearChatHistory() {
 
 function handleTitleClick() {
   console.log("Title clicked!");
+  // var mdElement = document.getElementById("markdownTest");
+  // mdElement.mdContent = "## New con";
 }
