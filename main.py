@@ -4,6 +4,7 @@ from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
 import fastapi_poe as fp
 import logging
+import base64
 
 app = FastAPI()
 
@@ -48,8 +49,21 @@ async def websocket_endpoint(websocket: WebSocket):
                 await websocket.send_text("[CLS-RSP]")
                 continue
 
-            conversation_history.append(
-                fp.ProtocolMessage(role="user", content=data))
+            # Check if received data is an image (base64 string usually starts with 'data:image/')
+            if data.startswith('data:image/'):
+                # Process the image if needed
+                logger.debug("Received an image")
+                # Decode the base64 image if needed (here we just log its type)
+                image_type = data.split(';')[0].split('/')[1]
+                logger.info(f"Image type: {image_type}")
+                # Add the image as a message
+                conversation_history.append(
+                    fp.ProtocolMessage(role="user", content="[Image]"))
+
+            else:
+                conversation_history.append(
+                    fp.ProtocolMessage(role="user", content=data))
+
             bot_response = ""
             async for partial in fp.get_bot_response(messages=conversation_history, bot_name=bot_name, api_key=api_key):
                 if partial.text:

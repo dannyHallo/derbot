@@ -55,13 +55,34 @@ document.getElementById("clear-button").onclick = function () {
   ws.send("[CLS-REQ]");
 };
 
-function sendMessage() {
-  var content = document.getElementById("content").value;
+document.getElementById("attach-button").onclick = function () {
+  document.getElementById("image-input").click();
+};
+
+document.getElementById("image-input").onchange = function (event) {
+  var file = event.target.files[0];
+  if (!file) {
+    return;
+  }
+  if (!file.type.match('image.*')) {
+    alert("Please select a valid image file (jpg, png, jpeg).");
+    return;
+  }
+  var reader = new FileReader();
+  reader.onload = function (e) {
+    var base64Image = e.target.result;
+    sendMessage(base64Image, true);
+  };
+  reader.readAsDataURL(file);
+};
+
+function sendMessage(content, isImage = false) {
+  // reject empty messages from being sent
   if (!content.trim()) {
     return;
   }
   var chatHistory = document.getElementById("chat-history");
-  var messageHtml = `<div class="message user-message"><md-block class="text">${content}</md-block></div>`;
+  var messageHtml = `<div class="message user-message"><md-block class="text">${isImage ? '<img src="' + content + '" />' : content}</md-block></div>`;
   chatHistory.innerHTML += messageHtml;
   chatHistory.scrollTop = chatHistory.scrollHeight;
   ws.send(content);
