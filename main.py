@@ -40,20 +40,24 @@ async def websocket_endpoint(websocket: WebSocket):
             data = await websocket.receive_text()
             logger.debug(f"Received WebSocket message: {data}")
 
+            # response for the clear screen request
             if data == "[CLS-REQ]":
                 conversation_history.clear()
                 logger.info("Conversation history cleared")
+                # answer to the client that the clear screen has been done at the server side
                 await websocket.send_text("[CLS-RSP]")
                 continue
 
             conversation_history.append(
                 fp.ProtocolMessage(role="user", content=data))
+            bot_response = ""
             async for partial in fp.get_bot_response(messages=conversation_history, bot_name=bot_name, api_key=api_key):
                 if partial.text:
+                    bot_response += partial.text
                     await websocket.send_text(partial.text)
             await websocket.send_text("[END]")
             conversation_history.append(
-                fp.ProtocolMessage(role="bot", content=partial.text))
+                fp.ProtocolMessage(role="bot", content=bot_response))
     except WebSocketDisconnect:
         logger.info("Client disconnected")
     except Exception as e:
