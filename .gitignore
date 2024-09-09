@@ -1,4 +1,3 @@
-# ignore the pub & private keys, they can be safely obtained at alicloud
 frp/*.crt
 frp/*.key
 
