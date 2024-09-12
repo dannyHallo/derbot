@@ -11,7 +11,7 @@
     {
       "label": "start frpc windows",
       "type": "shell",
-      "command": "./frp/frpc.exe -c ./frp/frpc.toml"
+      "command": "${workspaceFolder}/frp/frpc.exe -c ./frp/frpc.toml"
     },
     {
       "label": "start frpc macos",
